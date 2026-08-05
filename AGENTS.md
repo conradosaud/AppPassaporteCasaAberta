@@ -7,6 +7,7 @@ Este é um projeto feito em **React** usando **Vite** na versão mais recente. E
 - Leia sempre os arquivos na pasta `docs` para entender como funciona o app
 - Leia sempre o `BACKLOG.md` antes de fazer implementações
 - Crie *Plano de Implementação* antes de modificações grandes no projeto
+- Nunca use o Power Shell para executar comandos, use sempre o Command Prompt
 
 ## Git
 - Você tem permissões para fazer commit no meu GIT e também push para o Github, porém **somente quando eu pedir**
