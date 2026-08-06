@@ -5,14 +5,19 @@
 
 
 ## Visitantes
-- [x] Cadastro inicial parcial de usuário
-- [x] Cronograma
+- [x] Cadastro inicial parcial de usuário (tela de boas-vindas com registro no localStorage)
+- [ ] Cronograma
 - [ ] Filtros do cronograma
 
 ## Oficinas
-- [x] Ver detalhes de uma oficina pelo cronograma
-- [x] Marcar como concluído uma oficina
+- [ ] Ver detalhes de uma oficina pelo cronograma
+- [ ] Marcar como concluído uma oficina
 - [ ] Cadastrar uma nova oficina no sistema
 
 ## Administrativo
-- [x] Visualizar relatórios
+- [ ] Visualizar relatórios
+
+## Estrutura e Navegação
+- [x] Tela de boas-vindas com design premium (glassmorphism, background logomobile, logo Senac SVG)
+- [x] Roteamento configurado (/, /cronograma, /relatorios, /detalhes)
+- [x] Resolução de conflito de merge entre branches
