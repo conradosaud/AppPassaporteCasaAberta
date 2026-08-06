@@ -253,8 +253,8 @@
         "local": "Sala 13",
         "categoria": "Atividade de Comunicação Social.",
         "horarios": [
-            "Sessão 01: 19h às 19h15",
-            "Sessão 02: 19h45 às 20h"
+            "19h às 19h15",
+            "19h45 às 20h"
         ],
         "observacao": ""
     },
@@ -296,7 +296,8 @@
         "local": "Sala 12",
         "categoria": "Atividade da Beleza.",
         "horarios": [
-            "14h às 15h 15h30 às 16h30"
+            "14h às 15h",
+            "15h30 às 16h30"
         ],
         "observacao": "10 vagas por turma| inscrições por ordem de chegada"
     },
@@ -430,14 +431,6 @@
         "descricao": "Descubra o poder das argilas em uma vivência prática e educativa!Aprenda sobre tipos, benefícios e aplicações no cuidado com a pele e o bem-estar.Uma experiência acessível para incorporar o autocuidado natural no seu dia a dia com segurança e eficácia.",
         "local": "Lab 8",
         "categoria": "Atividade do Bem-Estar.",
-        "horarios": [],
-        "observacao": ""
-    },
-    {
-        "titulo": "Links Relacionados",
-        "descricao": "",
-        "local": "",
-        "categoria": "",
         "horarios": [],
         "observacao": ""
     }
