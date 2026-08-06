@@ -1,0 +1,7 @@
+feat: fluxo de detalhes e avaliacao de oficinas
+
+- Implementa navegacao dinamica do Cronograma para Detalhes
+- Adiciona modulo de integracao com API REST do Supabase
+- Cria modal de avaliacao Like/Dislike ao concluir oficina
+- Salva resultados da avaliacao na tabela do Supabase
+- Atualiza status das tarefas no arquivo BACKLOG.md
