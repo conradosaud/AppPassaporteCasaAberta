@@ -55,7 +55,15 @@ function Home() {
               <h1 className="title">CASA ABERTA SENAC</h1>
               <p className="subtitle">Bem-vindo(a) ao passaporte virtual do evento!</p>
             </div>
-
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
+  
             <h2>Identifique-se</h2>
 
             <div className="form-group">
