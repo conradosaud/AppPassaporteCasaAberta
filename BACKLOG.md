@@ -15,4 +15,4 @@
 - [ ] Cadastrar uma nova oficina no sistema
 
 ## Administrativo
-- [ ] Visualizar relatórios
+- [x] Visualizar relatórios
