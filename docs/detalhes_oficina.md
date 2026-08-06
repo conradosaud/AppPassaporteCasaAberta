@@ -43,5 +43,6 @@ início da oficina:
 
 1. Visitante abre a tela de Detalhes de uma oficina não concluída.
 2. Toca em **"Concluir oficina"**.
-3. Sistema pede avaliação (1–5 estrelas, opcional) e comentário (opcional).
-4. Tela muda para o estado "concluída", mostrando o carimbo e a nota dada.
+3. Sistema pede avaliação (Like/Dislike -realizado a pergunta "Você gostou da experiência desta oficina?").
+4. Tela muda para o estado "concluída", mostrando o carimbo.
+

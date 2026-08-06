@@ -10,8 +10,8 @@
 - [ ] Filtros do cronograma
 
 ## Oficinas
-- [ ] Ver detalhes de uma oficina pelo cronograma
-- [ ] Marcar como concluído uma oficina
+- [x] Ver detalhes de uma oficina pelo cronograma
+- [x] Marcar como concluído uma oficina
 - [ ] Cadastrar uma nova oficina no sistema
 
 ## Administrativo
