@@ -1,0 +1,465 @@
+.cronograma-container {
+  background-color: #F5F5F5;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Inter', 'Roboto', sans-serif;
+  color: #333;
+}
+
+.cronograma-container * {
+  box-sizing: border-box;
+}
+
+.cronograma-header {
+  background-color: #003366;
+  color: white;
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.header-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.senac-logo {
+  height: 40px;
+  width: auto;
+}
+
+.header-title {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.header-title-casa {
+  color: #FFFFFF;
+}
+
+.header-title-aberta {
+  color: #FF8C00;
+}
+
+.header-subtitle {
+  font-size: 14px;
+  margin: 0;
+  opacity: 0.9;
+}
+
+.cronograma-body {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.section-title-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+
+.section-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #003366;
+  margin: 0;
+}
+
+.section-subtitle {
+  font-size: 14px;
+  color: #666;
+  margin: 0 0 16px 0;
+}
+
+/* Seletor de Período */
+.seletor-container {
+  position: sticky;
+  top: 0;
+  background-color: #F5F5F5;
+  z-index: 20;
+  padding: 10px 0;
+}
+
+.seletor-tabs {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.seletor-tab {
+  flex: 1;
+  padding: 12px 0;
+  border-radius: 8px;
+  border: none;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background-color: #E0E0E0;
+  color: #555;
+}
+
+.seletor-tab.active {
+  background-color: #FF8C00;
+  color: white;
+  box-shadow: 0 4px 6px rgba(255, 140, 0, 0.3);
+}
+
+.aviso-destaque {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background-color: #EAF4FC;
+  border-left: 4px solid #0073B7;
+  padding: 12px 16px;
+  border-radius: 4px 8px 8px 4px;
+  font-size: 14px;
+  color: #003366;
+}
+
+/* Tabela de Horários */
+.tabela-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  padding: 16px;
+  /* rolagem horizontal ergonomica */
+  scroll-snap-type: x mandatory;
+}
+
+.tabela-horarios {
+  min-width: 600px; /* Garante que há scroll se a tela for muito pequena */
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.tabela-header-row {
+  display: block;
+  border-bottom: 1px solid #EEE;
+  padding-bottom: 8px;
+}
+
+.tabela-header-cell {
+  flex: 1;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: #666;
+  min-width: 80px;
+}
+
+.tabela-area-row {
+  display: flex;
+  align-items: stretch;
+  position: relative;
+  min-height: 80px;
+  border-bottom: 1px dashed #EEE;
+  padding-bottom: 12px;
+}
+
+.tabela-area-row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.area-info-col {
+  width: 100px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-right: 12px;
+  background-color: white;
+  border-right: 1px solid #EEE;
+}
+
+.area-nome {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.area-sala {
+  font-size: 12px;
+  color: #666;
+  margin-top: 4px;
+}
+
+.area-oficinas-col {
+  flex: 1;
+  display: flex;
+  position: relative;
+}
+
+.oficina-card {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 90%;
+  border-radius: 8px;
+  padding: 8px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.oficina-card:hover {
+  transform: translateY(-50%) scale(1.02);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  z-index: 5;
+}
+
+.oficina-titulo {
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 4px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.oficina-horario {
+  font-size: 10px;
+  opacity: 0.9;
+}
+
+/* Rodapé */
+.rodape-divisor {
+  height: 1px;
+  background-color: #DDD;
+  margin: 10px 0 20px 0;
+}
+
+.rodape-periodos {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+@media (max-width: 600px) {
+  .rodape-periodos {
+    flex-direction: column;
+  }
+}
+
+.rodape-bloco {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  border-radius: 12px;
+  background-color: white;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.rodape-icone {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.rodape-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.rodape-nome {
+  font-weight: 700;
+  font-size: 16px;
+  color: #333;
+}
+
+.rodape-horas {
+  font-size: 14px;
+  color: #666;
+}
+
+/* Cores por Categoria */
+.bg-tecnologia { background-color: #0073B7; }
+.text-tecnologia { color: #0073B7; }
+
+.bg-gestao { background-color: #F15A24; }
+.text-gestao { color: #F15A24; }
+
+.bg-saude { background-color: #009C5B; }
+.text-saude { color: #009C5B; }
+
+.bg-criatividade { background-color: #7B4B9A; }
+.text-criatividade { color: #7B4B9A; }
+
+.bg-educacao { background-color: #D63A4A; }
+.text-educacao { color: #D63A4A; }
+
+/* Grid de Exposições (Cards Verticais) */
+.exposicao-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  padding: 8px 0;
+}
+
+.exposicao-card-item {
+  border-radius: 12px;
+  padding: 16px;
+  color: white;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.exposicao-card-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+.exposicao-card-title {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.exposicao-card-area {
+  font-size: 14px;
+  opacity: 0.9;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Modal e Checkout */
+.checkout-verde {
+  background-color: #d4edda !important;
+  color: #155724 !important;
+  border: 1px solid #c3e6cb;
+}
+
+.checkout-verde .oficina-horario {
+  color: #155724 !important;
+  opacity: 0.8;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 24px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 400px;
+  position: relative;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.modal-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: transparent;
+  border: none;
+  color: #999;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-close:hover {
+  color: #333;
+}
+
+.modal-title {
+  font-size: 20px;
+  color: #003366;
+  margin: 0;
+  padding-right: 24px;
+  line-height: 1.3;
+}
+
+.modal-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #555;
+}
+
+.modal-description {
+  font-size: 14px;
+  color: #666;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.btn-checkout {
+  background-color: #0073B7;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.btn-checkout:hover {
+  background-color: #005a8f;
+}
+
+.btn-checkout-concluida {
+  background-color: #28a745 !important;
+  cursor: default;
+}
+
+.btn-checkout-concluida:hover {
+  background-color: #28a745 !important;
+}

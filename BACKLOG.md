@@ -6,7 +6,7 @@
 
 ## Visitantes
 - [x] Cadastro inicial parcial de usuário
-- [ ] Cronograma
+- [x] Cronograma
 - [ ] Filtros do cronograma
 
 ## Oficinas
