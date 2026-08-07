@@ -6,12 +6,16 @@
 
 ## Visitantes
 - [x] Cadastro inicial parcial de usuário (tela de boas-vindas com registro no localStorage)
-- [ ] Cronograma
+- [x] Cronograma
+- [x] Integração do cronograma com dados reais (oficinas.json)
+- [x] Alternador de visualização do cronograma (Grade vs. Linha do Tempo Vertical)
 - [ ] Filtros do cronograma
 
 ## Oficinas
-- [ ] Ver detalhes de uma oficina pelo cronograma
-- [ ] Marcar como concluído uma oficina
+- [x] Ver detalhes de uma oficina pelo cronograma
+- [x] Navegação direta do cronograma para tela de detalhes (substituído modal intermediário)
+- [x] Marcar como concluído uma oficina (avaliação Like/Dislike salva no Supabase)
+- [x] Integração Supabase via client oficial (@supabase/supabase-js) em vez de fetch manual
 - [ ] Cadastrar uma nova oficina no sistema
 
 ## Administrativo

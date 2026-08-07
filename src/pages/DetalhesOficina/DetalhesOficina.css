@@ -369,3 +369,37 @@ body, html {
   from { transform: scale(0.92) translateY(16px); opacity: 0; }
   to { transform: scale(1) translateY(0); opacity: 1; }
 }
+
+/* ─── Estado de Erro (acesso direto sem oficina) ─── */
+.detalhes-erro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 12px;
+  color: var(--text-gray);
+  padding: 48px 20px;
+}
+
+.detalhes-erro p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+/* ─── Modal: mensagens de erro e loading ─── */
+.modal-erro {
+  font-size: 13px;
+  color: #dc3545;
+  margin: -16px 0 12px;
+  background-color: rgba(220,53,69,0.07);
+  border-radius: 8px;
+  padding: 8px 12px;
+}
+
+.modal-salvando {
+  font-size: 13px;
+  color: var(--text-gray);
+  margin: 16px 0 0;
+}

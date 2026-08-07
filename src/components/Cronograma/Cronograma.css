@@ -297,21 +297,27 @@
   color: #666;
 }
 
-/* Cores por Categoria */
-.bg-tecnologia { background-color: #0073B7; }
-.text-tecnologia { color: #0073B7; }
-
-.bg-gestao { background-color: #F15A24; }
-.text-gestao { color: #F15A24; }
-
-.bg-saude { background-color: #009C5B; }
-.text-saude { color: #009C5B; }
-
-.bg-criatividade { background-color: #7B4B9A; }
-.text-criatividade { color: #7B4B9A; }
-
-.bg-educacao { background-color: #D63A4A; }
-.text-educacao { color: #D63A4A; }
+/* Paleta dinâmica de 20 cores por índice de local */
+.bg-cor-0  { background-color: #0073B7; } .text-cor-0  { color: #0073B7; }
+.bg-cor-1  { background-color: #F15A24; } .text-cor-1  { color: #F15A24; }
+.bg-cor-2  { background-color: #009C5B; } .text-cor-2  { color: #009C5B; }
+.bg-cor-3  { background-color: #7B4B9A; } .text-cor-3  { color: #7B4B9A; }
+.bg-cor-4  { background-color: #D63A4A; } .text-cor-4  { color: #D63A4A; }
+.bg-cor-5  { background-color: #1A7A6E; } .text-cor-5  { color: #1A7A6E; }
+.bg-cor-6  { background-color: #C4820A; } .text-cor-6  { color: #C4820A; }
+.bg-cor-7  { background-color: #2E5FA3; } .text-cor-7  { color: #2E5FA3; }
+.bg-cor-8  { background-color: #A0522D; } .text-cor-8  { color: #A0522D; }
+.bg-cor-9  { background-color: #5C6BC0; } .text-cor-9  { color: #5C6BC0; }
+.bg-cor-10 { background-color: #00838F; } .text-cor-10 { color: #00838F; }
+.bg-cor-11 { background-color: #E53935; } .text-cor-11 { color: #E53935; }
+.bg-cor-12 { background-color: #558B2F; } .text-cor-12 { color: #558B2F; }
+.bg-cor-13 { background-color: #6D4C41; } .text-cor-13 { color: #6D4C41; }
+.bg-cor-14 { background-color: #283593; } .text-cor-14 { color: #283593; }
+.bg-cor-15 { background-color: #AD1457; } .text-cor-15 { color: #AD1457; }
+.bg-cor-16 { background-color: #00695C; } .text-cor-16 { color: #00695C; }
+.bg-cor-17 { background-color: #E65100; } .text-cor-17 { color: #E65100; }
+.bg-cor-18 { background-color: #37474F; } .text-cor-18 { color: #37474F; }
+.bg-cor-19 { background-color: #6A1B9A; } .text-cor-19 { color: #6A1B9A; }
 
 /* Grid de Exposições (Cards Verticais) */
 .exposicao-grid {
@@ -463,3 +469,181 @@
 .btn-checkout-concluida:hover {
   background-color: #28a745 !important;
 }
+
+/* Layout Superior do Seletor & Alternador de Modo */
+.seletor-top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.seletor-top-row .seletor-tabs {
+  margin-bottom: 0;
+  flex: 1;
+  min-width: 260px;
+}
+
+.modo-toggle-container {
+  display: flex;
+  background-color: #E0E0E0;
+  border-radius: 8px;
+  padding: 3px;
+  gap: 2px;
+}
+
+.modo-toggle-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  background-color: transparent;
+  color: #555;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.modo-toggle-btn.active {
+  background-color: #003366;
+  color: white;
+  box-shadow: 0 2px 4px rgba(0, 51, 102, 0.2);
+}
+
+.modo-toggle-btn:hover:not(.active) {
+  background-color: rgba(0,0,0,0.05);
+  color: #333;
+}
+
+@media (max-width: 480px) {
+  .modo-toggle-label {
+    display: none;
+  }
+  .modo-toggle-btn {
+    padding: 8px 10px;
+  }
+}
+
+/* ── Estilos da Linha do Tempo Vertical ─────────────────────────── */
+.timeline-container {
+  width: 100%;
+  padding: 10px 0;
+}
+
+.timeline-vertical {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-left: 20px;
+}
+
+.timeline-line {
+  position: absolute;
+  top: 15px;
+  bottom: 15px;
+  left: 48px;
+  width: 3px;
+  background: linear-gradient(180deg, #0073B7 0%, #E0E0E0 100%);
+  border-radius: 2px;
+  z-index: 1;
+}
+
+.timeline-item {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  z-index: 2;
+}
+
+.timeline-badge {
+  min-width: 58px;
+  height: 36px;
+  border-radius: 18px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: bold;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  flex-shrink: 0;
+}
+
+.timeline-badge.badge-concluida {
+  background-color: #28a745 !important;
+}
+
+.timeline-card {
+  flex: 1;
+  background-color: #FAFAFA;
+  border: 1px solid #EAEAEA;
+  border-radius: 12px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+}
+
+.timeline-card:hover {
+  transform: translateX(4px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  background-color: #FFFFFF;
+}
+
+.timeline-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.timeline-tag {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.timeline-time {
+  font-size: 12px;
+  color: #666;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.timeline-card-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #222;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.timeline-card-cat {
+  font-size: 13px;
+  color: #777;
+  margin: 0;
+}
+
+.timeline-concluida-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #155724;
+  margin-top: 4px;
+}
+

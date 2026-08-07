@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
+import { salvarUsuario } from './supabase.js';
 import Cronograma from './components/Cronograma/Cronograma';
 import Relatorios from './Relatorios';
 import DetalhesOficina from './pages/DetalhesOficina';
@@ -7,6 +8,7 @@ import './App.css';
 
 function Home() {
   const [userData, setUserData] = useState(null);
+  const navigate = useNavigate();
 
   // Form State
   const [fullName, setFullName] = useState('');
@@ -22,12 +24,12 @@ function Home() {
 
   const getPeriod = () => {
     const hour = new Date().getHours();
-    if (hour >= 8 && hour < 12) return 'morning';
-    if (hour >= 12 && hour < 18) return 'afternoon';
-    return 'night';
+    if (hour >= 8 && hour < 12) return 'Manhã';
+    if (hour >= 12 && hour < 18) return 'Tarde';
+    return 'Noite';
   };
 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
     if (!fullName.trim() || isFirstTime === null) return;
 
@@ -40,14 +42,22 @@ function Home() {
 
     localStorage.setItem('userData', JSON.stringify(data));
     setUserData(data);
+
+    try {
+      await salvarUsuario(data);
+    } catch (err) {
+      console.error('Erro ao salvar no Supabase:', err);
+      alert('Erro ao salvar dados. Você está sendo redirecionado');
+    } finally {
+      navigate('/cronograma');
+    }
   };
 
   const isFormValid = fullName.trim().length > 0 && isFirstTime !== null;
 
   return (
     <div className="app-container">
-      <img src="/Senac_logo.svg" alt="Senac Logo" className="senac-logo" />
-
+      
       {!userData ? (
         <div className="modal-overlay">
           <form className="glass-modal" onSubmit={handleRegister}>
@@ -55,6 +65,14 @@ function Home() {
               <h1 className="title">CASA ABERTA SENAC</h1>
               <p className="subtitle">Bem-vindo(a) ao passaporte virtual do evento!</p>
             </div>
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
 
             <h2>Identifique-se</h2>
 
@@ -109,6 +127,7 @@ function Home() {
         <div className="welcome-user">
           <h2>Olá, {userData.fullName}!</h2>
           <p>Seu passaporte está pronto para ser usado.</p>
+          <a href="/cronograma" className="submit-btn" >Ver Cronograma</a>
           {/* O usuário não pode fazer log-off. Futuramente haverá botão para o cronograma aqui */}
         </div>
       )}
