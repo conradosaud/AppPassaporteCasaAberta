@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { MapPin, Clock } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import ModalOficina from './ModalOficina';
 import './Cronograma.css';
 
 // Paleta de cores dinâmica por índice (Opção A)
@@ -70,8 +69,8 @@ function classificaPeriodo(inicio) {
 }
 
 export default function TabelaHorarios({ periodoAtivo }) {
+  const navigate = useNavigate();
   const [oficinasConcluidas, setOficinasConcluidas] = useState([]);
-  const [oficinaSelecionada, setOficinaSelecionada] = useState(null);
   const [oficinasData, setOficinasData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -82,11 +81,6 @@ export default function TabelaHorarios({ periodoAtivo }) {
       setOficinasConcluidas(JSON.parse(salvas));
     }
   }, []);
-
-  // Salvar no localStorage ao alterar
-  useEffect(() => {
-    localStorage.setItem('oficinasConcluidas', JSON.stringify(oficinasConcluidas));
-  }, [oficinasConcluidas]);
 
   // Carregar oficinas do JSON real
   useEffect(() => {
@@ -102,18 +96,10 @@ export default function TabelaHorarios({ periodoAtivo }) {
       });
   }, []);
 
-  const handleCheckout = (oficina) => {
-    if (!oficinasConcluidas.includes(oficina.titulo)) {
-      setOficinasConcluidas([...oficinasConcluidas, oficina.titulo]);
-    }
-  };
-
-  const handleAbrirModal = (oficina, areaNome, sala, horarioFormatado) => {
-    setOficinaSelecionada({ ...oficina, areaNome, sala, horarioFormatado });
-  };
-
-  const handleFecharModal = () => {
-    setOficinaSelecionada(null);
+  const handleAbrirDetalhes = (oficina, areaNome, sala, horarioFormatado) => {
+    navigate('/detalhes', {
+      state: { oficina: { ...oficina, areaNome, sala, horarioFormatado } },
+    });
   };
 
   // Configuração de horários por período
@@ -239,7 +225,7 @@ export default function TabelaHorarios({ periodoAtivo }) {
                 <div
                   key={idx}
                   className={`exposicao-card-item ${isConcluida ? 'checkout-verde' : oficina.corClass}`}
-                  onClick={() => handleAbrirModal(oficina, oficina.areaNome, oficina.sala, horarioFormatado)}
+                  onClick={() => handleAbrirDetalhes(oficina, oficina.areaNome, oficina.sala, horarioFormatado)}
                 >
                   <span className="exposicao-card-title">{oficina.titulo}</span>
                   <div className="exposicao-card-area">
@@ -250,13 +236,6 @@ export default function TabelaHorarios({ periodoAtivo }) {
             })}
           </div>
         )}
-
-        <ModalOficina
-          oficina={oficinaSelecionada}
-          onClose={handleFecharModal}
-          onCheckout={handleCheckout}
-          isConcluida={oficinaSelecionada && oficinasConcluidas.includes(oficinaSelecionada.titulo)}
-        />
       </div>
     );
   }
@@ -331,7 +310,7 @@ export default function TabelaHorarios({ periodoAtivo }) {
                         className={`oficina-card ${isConcluida ? 'checkout-verde' : area.corClass}`}
                         style={estilo}
                         title={`${oficina.titulo} (${horarioFormatado})`}
-                        onClick={() => handleAbrirModal(oficina, area.nome, area.sala, horarioFormatado)}
+                        onClick={() => handleAbrirDetalhes(oficina, area.nome, area.sala, horarioFormatado)}
                       >
                         <span className="oficina-titulo">{oficina.titulo}</span>
                         <span className="oficina-horario">{horarioFormatado}</span>
@@ -344,13 +323,6 @@ export default function TabelaHorarios({ periodoAtivo }) {
           })
         )}
       </div>
-
-      <ModalOficina
-        oficina={oficinaSelecionada}
-        onClose={handleFecharModal}
-        onCheckout={handleCheckout}
-        isConcluida={oficinaSelecionada && oficinasConcluidas.includes(oficinaSelecionada.titulo)}
-      />
     </div>
   );
 }
