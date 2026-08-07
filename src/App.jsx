@@ -57,8 +57,7 @@ function Home() {
 
   return (
     <div className="app-container">
-      <img src="/Senac_logo.svg" alt="Senac Logo" className="senac-logo" />
-
+      
       {!userData ? (
         <div className="modal-overlay">
           <form className="glass-modal" onSubmit={handleRegister}>
