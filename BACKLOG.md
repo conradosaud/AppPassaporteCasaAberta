@@ -13,7 +13,9 @@
 
 ## Oficinas
 - [x] Ver detalhes de uma oficina pelo cronograma
+- [x] Navegação direta do cronograma para tela de detalhes (substituído modal intermediário)
 - [x] Marcar como concluído uma oficina (avaliação Like/Dislike salva no Supabase)
+- [x] Integração Supabase via client oficial (@supabase/supabase-js) em vez de fetch manual
 - [ ] Cadastrar uma nova oficina no sistema
 
 ## Administrativo
