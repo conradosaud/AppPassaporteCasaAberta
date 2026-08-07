@@ -15,7 +15,7 @@
 - [ ] Cadastrar uma nova oficina no sistema
 
 ## Administrativo
-- [ ] Visualizar relatórios
+- [x] Visualizar relatórios e integração do dashboard com banco de dados Supabase
 
 ## Estrutura e Navegação
 - [x] Tela de boas-vindas com design premium (glassmorphism, background logomobile, logo Senac SVG)

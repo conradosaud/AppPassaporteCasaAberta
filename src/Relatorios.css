@@ -1,55 +1,103 @@
 .relatorios-container {
-  padding: 32px 40px;
+  padding: 32px;
   background-color: #f4f7f6;
   min-height: 100vh;
   font-family: 'Inter', sans-serif;
   color: #333;
-  max-width: 1400px;
+  max-width: 1600px;
   margin: 0 auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .relatorios-header {
   margin-bottom: 24px;
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
 }
 
 .relatorios-header h1 {
-  font-size: 2.2rem;
+  font-size: 2.4rem;
   color: #1a1a1a;
   margin: 0;
+  font-weight: 600;
 }
 
 .kpis-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 16px;
+  gap: 24px;
   margin-bottom: 32px;
 }
 
 .kpi-card {
   background-color: #fff;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  padding: 28px;
+  border-radius: 16px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.04);
   text-align: center;
   transition: transform 0.2s ease-in-out;
+  position: relative;
 }
 
 .kpi-card:hover {
   transform: translateY(-4px);
 }
 
+.kpi-icon-bg {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 12px;
+}
+
+.kpi-icon-bg.users .kpi-icon {
+  color: #3b82f6;
+}
+
+.kpi-icon-bg.offices .kpi-icon {
+  color: #8b5cf6;
+}
+
+.kpi-icon-bg.visits .kpi-icon {
+  color: #f59e0b;
+}
+
+.kpi-icon-bg.metrics .kpi-icon {
+  color: #10b981;
+}
+
+.kpi-icon-bg.highlight .kpi-icon {
+  color: #facc15;
+}
+
+.chart-icon {
+  color: #3b82f6;
+}
+
+.kpi-icon {
+  color: currentColor;
+}
+
 .kpi-card h3 {
   font-size: 0.95rem;
   color: #666;
   margin-top: 0;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
 .kpi-card p {
-  font-size: 1.8rem;
+  font-size: 2rem;
   font-weight: 700;
   color: #2c3e50;
   margin: 0;
@@ -57,7 +105,7 @@
 
 .charts-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 24px;
 }
 
@@ -65,7 +113,28 @@
   background-color: #fff;
   padding: 24px;
   border-radius: 16px;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.04);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.chart-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.chart-icon {
+  color: #3b82f6;
+}
+
+.chart-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1a1a1a;
 }
 
 .loading {
