@@ -8,6 +8,7 @@
 - [x] Cadastro inicial parcial de usuário (tela de boas-vindas com registro no localStorage)
 - [x] Cronograma
 - [x] Integração do cronograma com dados reais (oficinas.json)
+- [x] Alternador de visualização do cronograma (Grade vs. Linha do Tempo Vertical)
 - [ ] Filtros do cronograma
 
 ## Oficinas

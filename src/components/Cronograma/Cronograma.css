@@ -469,3 +469,181 @@
 .btn-checkout-concluida:hover {
   background-color: #28a745 !important;
 }
+
+/* Layout Superior do Seletor & Alternador de Modo */
+.seletor-top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.seletor-top-row .seletor-tabs {
+  margin-bottom: 0;
+  flex: 1;
+  min-width: 260px;
+}
+
+.modo-toggle-container {
+  display: flex;
+  background-color: #E0E0E0;
+  border-radius: 8px;
+  padding: 3px;
+  gap: 2px;
+}
+
+.modo-toggle-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  background-color: transparent;
+  color: #555;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.modo-toggle-btn.active {
+  background-color: #003366;
+  color: white;
+  box-shadow: 0 2px 4px rgba(0, 51, 102, 0.2);
+}
+
+.modo-toggle-btn:hover:not(.active) {
+  background-color: rgba(0,0,0,0.05);
+  color: #333;
+}
+
+@media (max-width: 480px) {
+  .modo-toggle-label {
+    display: none;
+  }
+  .modo-toggle-btn {
+    padding: 8px 10px;
+  }
+}
+
+/* ── Estilos da Linha do Tempo Vertical ─────────────────────────── */
+.timeline-container {
+  width: 100%;
+  padding: 10px 0;
+}
+
+.timeline-vertical {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-left: 20px;
+}
+
+.timeline-line {
+  position: absolute;
+  top: 15px;
+  bottom: 15px;
+  left: 48px;
+  width: 3px;
+  background: linear-gradient(180deg, #0073B7 0%, #E0E0E0 100%);
+  border-radius: 2px;
+  z-index: 1;
+}
+
+.timeline-item {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  z-index: 2;
+}
+
+.timeline-badge {
+  min-width: 58px;
+  height: 36px;
+  border-radius: 18px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: bold;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  flex-shrink: 0;
+}
+
+.timeline-badge.badge-concluida {
+  background-color: #28a745 !important;
+}
+
+.timeline-card {
+  flex: 1;
+  background-color: #FAFAFA;
+  border: 1px solid #EAEAEA;
+  border-radius: 12px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+}
+
+.timeline-card:hover {
+  transform: translateX(4px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  background-color: #FFFFFF;
+}
+
+.timeline-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.timeline-tag {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.timeline-time {
+  font-size: 12px;
+  color: #666;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.timeline-card-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #222;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.timeline-card-cat {
+  font-size: 13px;
+  color: #777;
+  margin: 0;
+}
+
+.timeline-concluida-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #155724;
+  margin-top: 4px;
+}
+

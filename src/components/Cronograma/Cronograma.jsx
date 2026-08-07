@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { Calendar } from 'lucide-react';
 import SeletorPeriodo from './SeletorPeriodo';
 import TabelaHorarios from './TabelaHorarios';
+import LinhaTempoVertical from './LinhaTempoVertical';
 import './Cronograma.css';
 
 export default function Cronograma() {
   const [periodoAtivo, setPeriodoAtivo] = useState('Tarde');
+  const [modoVisualizacao, setModoVisualizacao] = useState('grade');
 
   return (
     <div className="cronograma-container">
@@ -32,11 +34,18 @@ export default function Cronograma() {
 
         <SeletorPeriodo 
           periodoAtivo={periodoAtivo} 
-          setPeriodoAtivo={setPeriodoAtivo} 
+          setPeriodoAtivo={setPeriodoAtivo}
+          modoVisualizacao={modoVisualizacao}
+          setModoVisualizacao={setModoVisualizacao}
         />
         
-        <TabelaHorarios periodoAtivo={periodoAtivo} />
+        {modoVisualizacao === 'grade' ? (
+          <TabelaHorarios periodoAtivo={periodoAtivo} />
+        ) : (
+          <LinhaTempoVertical periodoAtivo={periodoAtivo} />
+        )}
       </main>
     </div>
   );
 }
+
