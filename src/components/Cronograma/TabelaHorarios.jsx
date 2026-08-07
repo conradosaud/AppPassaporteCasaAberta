@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { MapPin, Clock } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import ModalOficina from './ModalOficina';
 import './Cronograma.css';
 
 // Paleta de cores dinâmica por índice (Opção A)
@@ -109,6 +110,10 @@ export default function TabelaHorarios({ periodoAtivo }) {
 
   const handleAbrirModal = (oficina, areaNome, sala, horarioFormatado) => {
     setOficinaSelecionada({ ...oficina, areaNome, sala, horarioFormatado });
+  };
+
+  const handleFecharModal = () => {
+    setOficinaSelecionada(null);
   };
 
   // Configuração de horários por período
@@ -234,7 +239,7 @@ export default function TabelaHorarios({ periodoAtivo }) {
                 <div
                   key={idx}
                   className={`exposicao-card-item ${isConcluida ? 'checkout-verde' : oficina.corClass}`}
-                  onClick={() => handleAbrirDetalhes(oficina, oficina.areaNome, oficina.sala, horarioFormatado)}
+                  onClick={() => handleAbrirModal(oficina, oficina.areaNome, oficina.sala, horarioFormatado)}
                 >
                   <span className="exposicao-card-title">{oficina.titulo}</span>
                   <div className="exposicao-card-area">

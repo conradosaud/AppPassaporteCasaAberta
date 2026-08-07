@@ -6,7 +6,8 @@
 
 ## Visitantes
 - [x] Cadastro inicial parcial de usuário (tela de boas-vindas com registro no localStorage)
-- [ ] Cronograma
+- [x] Cronograma
+- [x] Integração do cronograma com dados reais (oficinas.json)
 - [ ] Filtros do cronograma
 
 ## Oficinas
