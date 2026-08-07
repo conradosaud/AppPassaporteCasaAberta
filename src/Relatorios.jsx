@@ -326,41 +326,6 @@ const Relatorios = () => {
           </div>
           <p>{data.kpis.percentualRecorrentes}</p>
         </div>
-        <div className="kpi-card">
-          <div className="kpi-icon-bg offices"><GraduationCap className="kpi-icon" size={28} /></div>
-          <h3>Total de Oficinas</h3>
-          <p>{data.kpis.totalOficinas}</p>
-        </div>
-        <div className="kpi-card">
-          <div className="kpi-icon-bg visits"><Footprints className="kpi-icon" size={28} /></div>
-          <h3>Total de Visitas</h3>
-          <p>{data.kpis.totalVisitas}</p>
-        </div>
-        <div className="kpi-card">
-          <div className="kpi-icon-bg metrics"><TrendingUp className="kpi-icon" size={28} /></div>
-          <h3>Oficinas/Usuário</h3>
-          <p>{data.kpis.mediaOficinasConcluidas}</p>
-        </div>
-        <div className="kpi-card">
-          <div className="kpi-icon-bg highlight"><Award className="kpi-icon" size={28} /></div>
-          <h3>Oficina Mais Visitada</h3>
-          <p>{data.kpis.oficinaMaisVisitada}</p>
-        </div>
-        <div className="kpi-card">
-          <div className="kpi-icon-bg metrics"><Clock3 className="kpi-icon" size={28} /></div>
-          <h3>Período de Pico</h3>
-          <p>{data.kpis.periodoMaiorMovimento}</p>
-        </div>
-        <div className="kpi-card">
-          <div className="kpi-icon-bg users"><Navigation className="kpi-icon" size={28} /></div>
-          <h3>1ª Viagem</h3>
-          <p>{data.kpis.percentualPrimeiraViagem}</p>
-        </div>
-        <div className="kpi-card">
-          <div className="kpi-icon-bg visits"><Repeat className="kpi-icon" size={28} /></div>
-          <h3>Recorrentes</h3>
-          <p>{data.kpis.percentualRecorrentes}</p>
-        </div>
       </div>
 
       <div className="charts-grid desktop-grid">

@@ -9,7 +9,7 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch; /* Garante que os filhos ocupem 100% da largura */
 }
 
 .relatorios-header {
@@ -30,9 +30,10 @@
 
 .kpis-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(4, 1fr); /* Force 4 columns desktop layout */
   gap: 24px;
   margin-bottom: 32px;
+  width: 100%;
 }
 
 .kpi-card {
@@ -105,8 +106,9 @@
 
 .charts-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(2, 1fr); /* Force 2 columns desktop layout */
   gap: 24px;
+  width: 100%;
 }
 
 .chart-card {
@@ -144,10 +146,4 @@
   height: 100vh;
   font-size: 1.5rem;
   color: #555;
-}
-
-@media (max-width: 768px) {
-  .charts-grid {
-    grid-template-columns: 1fr;
-  }
 }
