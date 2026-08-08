@@ -31,9 +31,9 @@
 
 .kpis-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  /* Force 4 columns desktop layout */
-  gap: 24px;
+  grid-template-columns: repeat(5, 1fr);
+  /* 5 KPIs em uma linha no desktop */
+  gap: 20px;
   margin-bottom: 32px;
   width: 100%;
 }
@@ -108,8 +108,8 @@
 
 .charts-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  /* Force 2 columns desktop layout */
+  grid-template-columns: repeat(3, 1fr);
+  /* 3 colunas no desktop: Top10 | Período | Usuários */
   gap: 24px;
   width: 100%;
 }

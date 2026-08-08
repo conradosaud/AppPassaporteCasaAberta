@@ -23,6 +23,12 @@
 
 ## Administrativo
 - [x] Visualizar relatórios e integração do dashboard com banco de dados Supabase
+- [x] Corrigir indicadores do dashboard (Cadastrados, Total de Avaliações, Oficina Mais Visitada)
+- [x] Total de oficinas baseado no arquivo oficinas.json (todas as 47 oficinas)
+- [x] Gráfico "Visitas por oficina" exibindo todas as oficinas com zero avaliações incluídas
+- [x] Gráfico "Período de maior visita" por categoria de oficina × período de cadastro do usuário
+- [x] Bar Race animado mostrando ranking de avaliações por oficina
+- [x] Layout desktop reorganizado: 5 KPIs em linha, gráficos em 3 colunas
 
 ## Estrutura e Navegação
 - [x] Tela de boas-vindas com design premium (glassmorphism, background logomobile, logo Senac SVG)

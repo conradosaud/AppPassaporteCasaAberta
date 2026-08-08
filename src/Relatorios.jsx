@@ -209,7 +209,7 @@ const Relatorios = () => {
     maintainAspectRatio: false,
     tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
     legend: { data: ['Manhã', 'Tarde', 'Noite'], top: '30px' },
-    xAxis: { type: 'category', data: data.periodoMaisVisitasOficina.oficinas, axisLabel: { width: 80, overflow: 'truncate' }, max:50 },
+    xAxis: { type: 'category', data: data.periodoMaisVisitasOficina.oficinas, axisLabel: { width: 80, overflow: 'truncate' }, max: 50 },
     yAxis: { type: 'value' },
     series: [
       { name: 'Manhã', type: 'bar', data: data.periodoMaisVisitasOficina.manha },
@@ -301,15 +301,6 @@ const Relatorios = () => {
       </div>
 
       <div className="charts-grid desktop-grid">
-
-        <div className="chart-card">
-          <div className="chart-header">
-            <Clock3 className="chart-icon" size={20} />
-            <span className="chart-title">Período de maior visita</span>
-            <MoreHorizontal className="chart-menu" size={20} />
-          </div>
-          <ReactECharts option={getPeriodoMaisVisitasOption()} notMerge={true} style={{ height: '350px' }} />
-        </div>
         <div className="chart-card">
           <div className="chart-header">
             <BarChart3 className="chart-icon" size={20} />
