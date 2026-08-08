@@ -4,6 +4,10 @@ import { ChevronLeft, Clock, MapPin, Sun, BookOpen, ThumbsUp, ThumbsDown, CheckC
 import { salvarAvaliacao } from '../../supabase';
 import './DetalhesOficina.css';
 
+// Tolerância de 7 minutos (em milissegundos) entre conclusões
+const TOLERANCIA_MS = 7 * 60 * 1000;
+const CHAVE_ULTIMA_CONCLUSAO = 'ultimaConclusaoTimestamp';
+
 // Calcula o período com base no horário de início (conforme documentação)
 function calculaPeriodo(inicioDecimal) {
   if (inicioDecimal >= 6 && inicioDecimal < 12) return 'Manhã';
@@ -22,6 +26,7 @@ export default function DetalhesOficina() {
 
   const [concluida, setConcluida] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [showModalTolerancia, setShowModalTolerancia] = useState(false);
   const [salvando, setSalvando] = useState(false);
   const [erroSalvar, setErroSalvar] = useState(null);
 
@@ -73,8 +78,24 @@ export default function DetalhesOficina() {
   const inicioFormatado = formataHora(oficina.inicio);
   const fimFormatado = formataHora(oficina.inicio + oficina.duracao);
 
+  // Verifica se o usuário ainda está dentro do período de tolerância
+  const estaEmTolerancia = () => {
+    const ultimaConclusao = localStorage.getItem(CHAVE_ULTIMA_CONCLUSAO);
+    if (!ultimaConclusao) return false;
+    const decorrido = Date.now() - parseInt(ultimaConclusao, 10);
+    return decorrido < TOLERANCIA_MS;
+  };
+
   const handleConcluir = () => {
     setErroSalvar(null);
+
+    if (estaEmTolerancia()) {
+      // Bloqueia: exibe modal de tolerância sem mostrar o tempo
+      setShowModalTolerancia(true);
+      return;
+    }
+
+    // Dentro do prazo normal: exibe o modal de avaliação
     setShowModal(true);
   };
 
@@ -98,6 +119,9 @@ export default function DetalhesOficina() {
         localStorage.setItem('oficinasConcluidas', JSON.stringify(lista));
       }
 
+      // Registra o timestamp desta conclusão para controle de tolerância
+      localStorage.setItem(CHAVE_ULTIMA_CONCLUSAO, String(Date.now()));
+
       setConcluida(true);
       setShowModal(false);
     } catch (erro) {
@@ -108,6 +132,9 @@ export default function DetalhesOficina() {
     }
   };
 
+  // Exposições não permitem conclusão nem avaliação
+  const isExposicao = oficina.periodo === 'Exposição';
+
   return (
     <div className="detalhes-container">
       {/* Topo */}
@@ -115,7 +142,7 @@ export default function DetalhesOficina() {
         <button className="btn-voltar" onClick={() => navigate(-1)} aria-label="Voltar">
           <ChevronLeft size={24} color="#004587" />
         </button>
-        <h1 className="titulo-pagina">Detalhes da Oficina</h1>
+        <h1 className="titulo-pagina">{isExposicao ? 'Detalhes da Exposição' : 'Detalhes da Oficina'}</h1>
         <div style={{ width: 40 }}></div>
       </header>
 
@@ -179,25 +206,27 @@ export default function DetalhesOficina() {
         )}
       </main>
 
-      {/* Área Inferior Fixa */}
-      <footer className="detalhes-footer">
-        {!concluida ? (
-          <button className="btn-concluir" onClick={handleConcluir}>
-            <span className="btn-icon-circle">
-              <CheckCircle size={22} />
-            </span>
-            <span>Concluir oficina</span>
-          </button>
-        ) : (
-          <div className="selo-concluido">
-            <CheckCircle size={24} color="#28a745" />
-            <span>Oficina concluída</span>
-          </div>
-        )}
-      </footer>
+      {/* Área Inferior Fixa — oculta para exposições */}
+      {!isExposicao && (
+        <footer className="detalhes-footer">
+          {!concluida ? (
+            <button className="btn-concluir" onClick={handleConcluir}>
+              <span className="btn-icon-circle">
+                <CheckCircle size={22} />
+              </span>
+              <span>Concluir oficina</span>
+            </button>
+          ) : (
+            <div className="selo-concluido">
+              <CheckCircle size={24} color="#28a745" />
+              <span>Oficina concluída</span>
+            </div>
+          )}
+        </footer>
+      )}
 
-      {/* Modal de Avaliação */}
-      {showModal && (
+      {/* Modal de Avaliação — não disponível para exposições */}
+      {!isExposicao && showModal && (
         <div className="modal-overlay">
           <div className="modal-content">
             <h3>Você gostou da experiência desta oficina?</h3>
@@ -226,6 +255,28 @@ export default function DetalhesOficina() {
             </div>
 
             {salvando && <p className="modal-salvando">Salvando avaliação...</p>}
+          </div>
+        </div>
+      )}
+
+      {/* Modal de Tolerância — bloqueia nova conclusão dentro de 7 min */}
+      {showModalTolerancia && (
+        <div className="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="tolerancia-titulo">
+          <div className="modal-content modal-tolerancia">
+            <div className="tolerancia-icone" aria-hidden="true">⏳</div>
+            <h3 id="tolerancia-titulo" className="tolerancia-titulo">
+              OPS!
+            </h3>
+            <p className="tolerancia-subtexto">
+              Você acabou de concluir uma oficina.{' '}
+              <strong>Aguarde para concluir outra.</strong>
+            </p>
+            <button
+              className="btn-tolerancia-ok"
+              onClick={() => setShowModalTolerancia(false)}
+            >
+              Entendido
+            </button>
           </div>
         </div>
       )}
