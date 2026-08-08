@@ -9,7 +9,8 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: stretch; /* Garante que os filhos ocupem 100% da largura */
+  align-items: stretch;
+  /* Garante que os filhos ocupem 100% da largura */
 }
 
 .relatorios-header {
@@ -30,7 +31,8 @@
 
 .kpis-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* Force 4 columns desktop layout */
+  grid-template-columns: repeat(4, 1fr);
+  /* Force 4 columns desktop layout */
   gap: 24px;
   margin-bottom: 32px;
   width: 100%;
@@ -106,7 +108,8 @@
 
 .charts-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* Force 2 columns desktop layout */
+  grid-template-columns: repeat(2, 1fr);
+  /* Force 2 columns desktop layout */
   gap: 24px;
   width: 100%;
 }
@@ -127,6 +130,7 @@
   justify-content: space-between;
   gap: 8px;
   margin-bottom: 12px;
+  text-align: center;
 }
 
 .chart-icon {
@@ -137,6 +141,7 @@
   font-size: 1.1rem;
   font-weight: 600;
   color: #1a1a1a;
+  text-align: center;
 }
 
 .loading {
