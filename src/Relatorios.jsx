@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ReactECharts from 'echarts-for-react';
 import { supabase } from './supabase';
+import BarRaceChart from './components/BarRaceChart';
 import {
   Users,
   UserPlus,
@@ -27,9 +28,10 @@ const Relatorios = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [avalResponse, usrResponse] = await Promise.all([
+        const [avalResponse, usrResponse, ofResponse] = await Promise.all([
           supabase.from('avaliacao').select('*'),
-          supabase.from('usuarios').select('*')
+          supabase.from('usuarios').select('*'),
+          fetch('/oficinas.json')
         ]);
 
         if (avalResponse.error || usrResponse.error) {
@@ -38,11 +40,15 @@ const Relatorios = () => {
 
         const validAvaliacoes = avalResponse.data || [];
         const validUsuarios = usrResponse.data || [];
+        const oficinasArray = await ofResponse.json();
 
         // Processing Avaliações (Oficinas)
         const totalVisitas = validAvaliacoes.length;
         const oficinasSet = new Set();
         const visitasPorOficinaMap = {};
+        oficinasArray.forEach(oficina => {
+          visitasPorOficinaMap[oficina.titulo] = 0;
+        });
         const periodoMaisVisitasOficinaMap = {}; // { oficina: { manha, tarde, noite } }
         const periodosAvaliacao = { manha: 0, tarde: 0, noite: 0 };
 
@@ -70,14 +76,14 @@ const Relatorios = () => {
           }
         });
 
-        const totalOficinas = oficinasSet.size;
+        const totalOficinas = oficinasArray.length || 0;
 
         let oficinaMaisVisitada = "-";
         let maxVisitas = 0;
         for (const [oficina, count] of Object.entries(visitasPorOficinaMap)) {
           if (count > maxVisitas) {
             maxVisitas = count;
-            oficinaMaisVisitada = oficina;
+            oficinaMaisVisitada = `${oficina} (${maxVisitas})`;
           }
         }
 
@@ -89,21 +95,11 @@ const Relatorios = () => {
 
         // Processing Usuários (Visitantes)
         const totalUsers = validUsuarios.length;
-        let cadastradosHoje = 0;
         let usersPrimeiraViagem = 0;
         let usersRecorrentes = 0;
         const periodosUsuarios = { Manhã: 0, Tarde: 0, Noite: 0 };
 
-        const todayDateStr = new Date().toISOString().split('T')[0];
-
         validUsuarios.forEach(usr => {
-          // Cadastrados Hoje
-          if (usr.dataCriacao) {
-            if (usr.dataCriacao.startsWith(todayDateStr)) {
-              cadastradosHoje++;
-            }
-          }
-
           // Novos vs Recorrentes
           if (usr.primeiraVez === true) {
             usersPrimeiraViagem++;
@@ -136,18 +132,18 @@ const Relatorios = () => {
         }
 
         // Chart Data prep
-        const oficinasList = Object.keys(visitasPorOficinaMap);
-        const visitasList = Object.values(visitasPorOficinaMap);
+        const sortedVisitasEntries = Object.entries(visitasPorOficinaMap).sort((a, b) => b[1] - a[1]);
+        const oficinasList = sortedVisitasEntries.map(e => e[0]);
+        const visitasList = sortedVisitasEntries.map(e => e[1]);
 
-        const sortedOficinas = [...oficinasList].sort((a, b) => visitasPorOficinaMap[b] - visitasPorOficinaMap[a]);
-        const top10 = sortedOficinas.slice(0, 10);
+        const top10 = oficinasList.slice(0, 10);
 
         const histKeys = ['1', '2', '3', '4', '5', '6+'];
         const histValues = histKeys.map(k => histMap[k] || 0);
 
         const newChartData = {
           kpis: {
-            visitantesCadastradosHoje: cadastradosHoje,
+            visitantesCadastradosHoje: totalUsers,
             totalOficinas: totalOficinas,
             totalVisitas: totalVisitas,
             mediaOficinasConcluidas: mediaOficinasConcluidas,
@@ -162,9 +158,9 @@ const Relatorios = () => {
           },
           periodoMaisVisitasOficina: {
             oficinas: oficinasList,
-            manha: oficinasList.map(o => periodoMaisVisitasOficinaMap[o].manha),
-            tarde: oficinasList.map(o => periodoMaisVisitasOficinaMap[o].tarde),
-            noite: oficinasList.map(o => periodoMaisVisitasOficinaMap[o].noite)
+            manha: oficinasList.map(o => periodoMaisVisitasOficinaMap[o] ? periodoMaisVisitasOficinaMap[o].manha : 0),
+            tarde: oficinasList.map(o => periodoMaisVisitasOficinaMap[o] ? periodoMaisVisitasOficinaMap[o].tarde : 0),
+            noite: oficinasList.map(o => periodoMaisVisitasOficinaMap[o] ? periodoMaisVisitasOficinaMap[o].noite : 0)
           },
           top10Oficinas: {
             oficinas: top10,
@@ -213,7 +209,7 @@ const Relatorios = () => {
     maintainAspectRatio: false,
     tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
     legend: { data: ['Manhã', 'Tarde', 'Noite'], top: '30px' },
-    xAxis: { type: 'category', data: data.periodoMaisVisitasOficina.oficinas, axisLabel: { width: 80, overflow: 'truncate' } },
+    xAxis: { type: 'category', data: data.periodoMaisVisitasOficina.oficinas, axisLabel: { width: 80, overflow: 'truncate' }, max:50 },
     yAxis: { type: 'value' },
     series: [
       { name: 'Manhã', type: 'bar', data: data.periodoMaisVisitasOficina.manha },
@@ -265,7 +261,7 @@ const Relatorios = () => {
         <div className="kpi-card">
           <div className="card-header">
             <div className="kpi-icon-bg users"><UserPlus className="kpi-icon" size={28} /></div>
-            <h3>Cadastrados Hoje</h3>
+            <h3>Cadastrados</h3>
             <MoreHorizontal className="card-menu" size={20} />
           </div>
           <p>{data.kpis.visitantesCadastradosHoje}</p>
@@ -281,18 +277,10 @@ const Relatorios = () => {
         <div className="kpi-card">
           <div className="card-header">
             <div className="kpi-icon-bg visits"><Footprints className="kpi-icon" size={28} /></div>
-            <h3>Total de Visitas</h3>
+            <h3>Total de Avaliações</h3>
             <MoreHorizontal className="card-menu" size={20} />
           </div>
           <p>{data.kpis.totalVisitas}</p>
-        </div>
-        <div className="kpi-card">
-          <div className="card-header">
-            <div className="kpi-icon-bg metrics"><TrendingUp className="kpi-icon" size={28} /></div>
-            <h3>Oficinas/Usuário</h3>
-            <MoreHorizontal className="card-menu" size={20} />
-          </div>
-          <p>{data.kpis.mediaOficinasConcluidas}</p>
         </div>
         <div className="kpi-card">
           <div className="card-header">
@@ -310,33 +298,10 @@ const Relatorios = () => {
           </div>
           <p>{data.kpis.periodoMaiorMovimento}</p>
         </div>
-        <div className="kpi-card">
-          <div className="card-header">
-            <div className="kpi-icon-bg users"><Navigation className="kpi-icon" size={28} /></div>
-            <h3>1ª Viagem</h3>
-            <MoreHorizontal className="card-menu" size={20} />
-          </div>
-          <p>{data.kpis.percentualPrimeiraViagem}</p>
-        </div>
-        <div className="kpi-card">
-          <div className="card-header">
-            <div className="kpi-icon-bg visits"><Repeat className="kpi-icon" size={20} /></div>
-            <h3>Recorrentes</h3>
-            <MoreHorizontal className="card-menu" size={20} />
-          </div>
-          <p>{data.kpis.percentualRecorrentes}</p>
-        </div>
       </div>
 
       <div className="charts-grid desktop-grid">
-        <div className="chart-card">
-          <div className="chart-header">
-            <BarChart3 className="chart-icon" size={20} />
-            <span className="chart-title">Visitas por oficina</span>
-            <MoreHorizontal className="chart-menu" size={20} />
-          </div>
-          <ReactECharts option={getVisitasPorOficinaOption()} notMerge={true} style={{ height: '350px' }} />
-        </div>
+
         <div className="chart-card">
           <div className="chart-header">
             <Clock3 className="chart-icon" size={20} />
@@ -355,14 +320,6 @@ const Relatorios = () => {
         </div>
         <div className="chart-card">
           <div className="chart-header">
-            <TrendingUp className="chart-icon" size={20} />
-            <span className="chart-title">Média concluídas</span>
-            <MoreHorizontal className="chart-menu" size={20} />
-          </div>
-          <ReactECharts option={getMediaConcluidasOption()} notMerge={true} style={{ height: '350px' }} />
-        </div>
-        <div className="chart-card">
-          <div className="chart-header">
             <ChartColumnIncreasing className="chart-icon" size={20} />
             <span className="chart-title">Usuários por período</span>
             <MoreHorizontal className="chart-menu" size={20} />
@@ -376,6 +333,19 @@ const Relatorios = () => {
             <MoreHorizontal className="chart-menu" size={20} />
           </div>
           <ReactECharts option={getNovosVsRecorrentesOption()} notMerge={true} style={{ height: '350px' }} />
+        </div>
+        <div className="chart-card" style={{ gridColumn: '1 / -1' }}>
+          <div className="chart-header">
+            <BarChart3 className="chart-icon" size={20} />
+            <span className="chart-title">Visitas por oficina</span>
+            <MoreHorizontal className="chart-menu" size={20} />
+          </div>
+          <BarRaceChart
+            oficinas={data.visitasPorOficina.oficinas.slice().reverse()}
+            visitas={data.visitasPorOficina.visitas.slice().reverse()}
+            duration={1000}
+            steps={20}
+          />
         </div>
       </div>
     </div>
