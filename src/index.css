@@ -4,7 +4,7 @@
   --primary-color: #F15A24; /* Laranja Senac aproximado */
   --secondary-color: #005A9C; /* Azul Senac aproximado */
   --text-color: #FFFFFF;
-  --bg-overlay: rgba(0, 0, 0, 0.7); /* Opacidade para o fundo */
+  --bg-overlay: rgba(0, 0, 0, 0); /* Removida a opacidade do fundo para manter cores originais */
 }
 
 * {

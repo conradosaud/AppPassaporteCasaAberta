@@ -17,14 +17,12 @@
 
 /* Header Area */
 .header {
-  position: absolute;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: start;
-  margin-bottom: 2rem;
+  align-items: center;
+  gap: 0.5rem;
   animation: fadeInDown 1s ease-out forwards;
-
 }
 
 .senac-logo {
@@ -33,7 +31,19 @@
   position: absolute;
   top: 1.5rem;
   right: 1.5rem;
-  filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.3));
+  filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.3)) contrast(1.2) saturate(1.1);
+  image-rendering: -webkit-optimize-contrast;
+}
+
+.senac-logo-bg {
+  margin-top: 15px;
+  width: 70px;
+  align-self: center;
+  /* Centraliza no flex container */
+  opacity: 1;
+  /* Completamente nítido/opaco */
+  /* filter: drop-shadow(0px 4px 8px rgba(0,0,0,0.4)) contrast(1.2) saturate(1.1); */
+  /* image-rendering: -webkit-optimize-contrast; */
 }
 
 .title {
@@ -42,16 +52,19 @@
   text-align: center;
   margin-bottom: 0.5rem;
   letter-spacing: 1px;
-  color: #fff;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-
+  color: #2B2B2B;
+  /* Escuro como na imagem */
+  text-shadow: none;
+  width: 220px;
 }
 
 .subtitle {
   font-size: 1.1rem;
-  font-weight: 300;
+  font-weight: 400;
+  font-style: italic;
   text-align: center;
-  color: #e0e0e0;
+  color: #555555;
+  /* Cinza escuro */
 }
 
 /* Modal Glassmorphism */
@@ -72,26 +85,29 @@
 }
 
 .glass-modal {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 252, 248, 0.92);
+  /* Off-white creme */
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 20px;
+  border: none;
+  border-radius: 24px;
   padding: 2rem;
   width: 100%;
   max-width: 400px;
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
-
+  gap: 1.2rem;
 }
 
 .glass-modal h2 {
-  font-size: 1.5rem;
-  font-weight: 600;
+  font-size: 1.3rem;
+  font-weight: 700;
+  font-style: italic;
   text-align: center;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0;
+  color: #E8611A;
+  /* Laranja Senac */
 }
 
 /* Form Groups */
@@ -103,7 +119,8 @@
 
 .form-group label {
   font-size: 0.95rem;
-  font-weight: 400;
+  font-weight: 600;
+  color: #2B2B2B;
 }
 
 /* Input text */
@@ -111,9 +128,9 @@
   width: 100%;
   padding: 12px 15px;
   border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  background: rgba(255, 255, 255, 0.05);
-  color: #fff;
+  border: 1px solid #D0D0D0;
+  background: #FFFFFF;
+  color: #2B2B2B;
   font-size: 1rem;
   font-family: inherit;
   outline: none;
@@ -121,13 +138,13 @@
 }
 
 .input-text:focus {
-  background: rgba(255, 255, 255, 0.15);
-  border-color: var(--primary-color);
-  box-shadow: 0 0 10px rgba(241, 90, 36, 0.3);
+  background: #FFFFFF;
+  border-color: #E8611A;
+  box-shadow: 0 0 8px rgba(232, 97, 26, 0.2);
 }
 
 .input-text::placeholder {
-  color: rgba(255, 255, 255, 0.5);
+  color: #AAAAAA;
 }
 
 /* Radio buttons container */
@@ -141,18 +158,20 @@
   align-items: center;
   gap: 0.5rem;
   cursor: pointer;
-  background: rgba(255, 255, 255, 0.05);
+  background: #FFFFFF;
   padding: 10px 15px;
   border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid #E8611A;
+  color: #E8611A;
   flex: 1;
   justify-content: center;
   transition: all 0.3s ease;
 }
 
 .radio-label:has(input:checked) {
-  background: var(--primary-color);
-  border-color: var(--primary-color);
+  background: #E8611A;
+  border-color: #E8611A;
+  color: #FFFFFF;
 }
 
 .radio-label input[type="radio"] {
@@ -161,8 +180,8 @@
 
 /* Submit Button */
 .submit-btn {
-  background: var(--primary-color);
-  color: #fff;
+  background: #E8611A;
+  color: #FFFFFF;
   border: none;
   padding: 15px;
   border-radius: 10px;
@@ -174,15 +193,15 @@
 }
 
 .submit-btn:disabled {
-  background: rgba(255, 255, 255, 0.2);
-  color: rgba(255, 255, 255, 0.5);
+  background: #E0D5CB;
+  color: #A89A8E;
   cursor: not-allowed;
 }
 
 .submit-btn:not(:disabled):hover {
-  background: #d94a1a;
+  background: #D05515;
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(241, 90, 36, 0.4);
+  box-shadow: 0 5px 15px rgba(232, 97, 26, 0.35);
 }
 
 .submit-btn:not(:disabled):active {
