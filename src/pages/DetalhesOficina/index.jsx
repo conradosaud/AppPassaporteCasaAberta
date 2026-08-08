@@ -15,6 +15,14 @@ function calculaPeriodo(inicioDecimal) {
   return 'Noite';
 }
 
+// Retorna o período atual com base no horário real do dispositivo
+function periodoAgora() {
+  const hora = new Date().getHours() + new Date().getMinutes() / 60;
+  if (hora >= 6 && hora < 12) return 'Manhã';
+  if (hora >= 12 && hora < 18) return 'Tarde';
+  return 'Noite';
+}
+
 // Retorna o ícone de categoria correto (ícone genérico BookOpen por padrão)
 function getIconeCategoria(categoria) {
   return <BookOpen size={13} />;
@@ -135,6 +143,13 @@ export default function DetalhesOficina() {
   // Exposições não permitem conclusão nem avaliação
   const isExposicao = oficina.periodo === 'Exposição';
 
+  // Bloqueia conclusão se a oficina não é do período atual
+  const periodoAtual = periodoAgora();
+  const isForaDoPeriodo = !isExposicao && oficina.periodo !== periodoAtual;
+
+  // Conclusão disponível somente para oficinas do período vigente
+  const podeСoncluir = !isExposicao && !isForaDoPeriodo;
+
   return (
     <div className="detalhes-container">
       {/* Topo */}
@@ -209,24 +224,29 @@ export default function DetalhesOficina() {
       {/* Área Inferior Fixa — oculta para exposições */}
       {!isExposicao && (
         <footer className="detalhes-footer">
-          {!concluida ? (
+          {concluida ? (
+            <div className="selo-concluido">
+              <CheckCircle size={24} color="#28a745" />
+              <span>Oficina concluída</span>
+            </div>
+          ) : isForaDoPeriodo ? (
+            <div className="aviso-periodo">
+              <Clock size={18} />
+              <span>Disponível apenas no período da <strong>{oficina.periodo}</strong></span>
+            </div>
+          ) : (
             <button className="btn-concluir" onClick={handleConcluir}>
               <span className="btn-icon-circle">
                 <CheckCircle size={22} />
               </span>
               <span>Concluir oficina</span>
             </button>
-          ) : (
-            <div className="selo-concluido">
-              <CheckCircle size={24} color="#28a745" />
-              <span>Oficina concluída</span>
-            </div>
           )}
         </footer>
       )}
 
-      {/* Modal de Avaliação — não disponível para exposições */}
-      {!isExposicao && showModal && (
+      {/* Modal de Avaliação — apenas para oficinas do período atual */}
+      {podeСoncluir && showModal && (
         <div className="modal-overlay">
           <div className="modal-content">
             <h3>Você gostou da experiência desta oficina?</h3>
@@ -260,7 +280,7 @@ export default function DetalhesOficina() {
       )}
 
       {/* Modal de Tolerância — bloqueia nova conclusão dentro de 7 min */}
-      {showModalTolerancia && (
+      {podeСoncluir && showModalTolerancia && (
         <div className="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="tolerancia-titulo">
           <div className="modal-content modal-tolerancia">
             <div className="tolerancia-icone" aria-hidden="true">⏳</div>
