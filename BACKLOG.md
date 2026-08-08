@@ -18,6 +18,7 @@
 - [x] Integração Supabase via client oficial (@supabase/supabase-js) em vez de fetch manual
 - [x] Modal de tolerância de 7 minutos entre conclusões de oficinas (sem exibir o tempo ao usuário)
 - [x] Exposições não exibem botão "Concluir" nem permitem avaliação
+- [x] Botão "Concluir" disponível apenas no período atual do usuário (Manhã/Tarde/Noite)
 - [ ] Cadastrar uma nova oficina no sistema
 
 ## Administrativo

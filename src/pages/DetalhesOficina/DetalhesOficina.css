@@ -478,3 +478,23 @@ html {
 .btn-tolerancia-ok:active {
   transform: scale(0.97);
 }
+
+/* ─── Aviso de período indisponível ─── */
+.aviso-periodo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #f5f5f7;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 14px 20px;
+  color: var(--text-gray);
+  font-size: 14px;
+  font-weight: 500;
+  width: 100%;
+  justify-content: center;
+}
+
+.aviso-periodo strong {
+  color: var(--text-dark);
+}
