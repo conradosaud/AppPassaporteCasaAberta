@@ -61,21 +61,13 @@ function Home() {
       {!userData ? (
         <div className="modal-overlay">
           <form className="glass-modal" onSubmit={handleRegister}>
+            
             <div className="header">
-              <h1 className="title">CASA ABERTA SENAC</h1>
+              {/* <h1 className="title">CASA ABERTA SENAC</h1> */}
+              <img className="title" src="casaabertasenac.png" alt="" />
               <p className="subtitle">Bem-vindo(a) ao passaporte virtual do evento!</p>
             </div>
-            <p></p>
-            <p></p>
-            <p></p>
-            <p></p>
-            <p></p>
-            <p></p>
-            <p></p>
-            <p></p>
-
-            <h2>Identifique-se</h2>
-
+            
             <div className="form-group">
               <label htmlFor="fullName">Nome Completo</label>
               <input
@@ -121,6 +113,7 @@ function Home() {
             >
               Começar
             </button>
+            <img src="/Senac_logo.svg" className="senac-logo-bg" alt="Logo Senac" />
           </form>
         </div>
       ) : (
