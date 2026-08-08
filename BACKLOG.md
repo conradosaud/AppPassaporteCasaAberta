@@ -14,6 +14,7 @@
 ## Oficinas
 - [x] Ver detalhes de uma oficina pelo cronograma
 - [x] Navegação direta do cronograma para tela de detalhes (substituído modal intermediário)
+- [x] Navegação da Linha do Tempo Vertical para tela de detalhes (alinhado à Grade Horizontal)
 - [x] Marcar como concluído uma oficina (avaliação Like/Dislike salva no Supabase)
 - [x] Integração Supabase via client oficial (@supabase/supabase-js) em vez de fetch manual
 - [x] Modal de tolerância de 7 minutos entre conclusões de oficinas (sem exibir o tempo ao usuário)

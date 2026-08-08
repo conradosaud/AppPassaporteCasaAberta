@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { MapPin, Clock, CheckCircle2 } from 'lucide-react';
-import ModalOficina from './ModalOficina';
+import { useNavigate } from 'react-router-dom';
 import './Cronograma.css';
 
 // Paleta de cores dinâmica por índice
@@ -64,8 +64,8 @@ function formataHora(horaDecimal) {
 }
 
 export default function LinhaTempoVertical({ periodoAtivo }) {
+  const navigate = useNavigate();
   const [oficinasConcluidas, setOficinasConcluidas] = useState([]);
-  const [oficinaSelecionada, setOficinaSelecionada] = useState(null);
   const [oficinasData, setOficinasData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -75,10 +75,6 @@ export default function LinhaTempoVertical({ periodoAtivo }) {
       setOficinasConcluidas(JSON.parse(salvas));
     }
   }, []);
-
-  useEffect(() => {
-    localStorage.setItem('oficinasConcluidas', JSON.stringify(oficinasConcluidas));
-  }, [oficinasConcluidas]);
 
   useEffect(() => {
     fetch('/oficinas.json')
@@ -93,18 +89,11 @@ export default function LinhaTempoVertical({ periodoAtivo }) {
       });
   }, []);
 
-  const handleCheckout = (oficina) => {
-    if (!oficinasConcluidas.includes(oficina.titulo)) {
-      setOficinasConcluidas([...oficinasConcluidas, oficina.titulo]);
-    }
-  };
-
-  const handleAbrirModal = (oficina, areaNome, sala, horarioFormatado) => {
-    setOficinaSelecionada({ ...oficina, areaNome, sala, horarioFormatado });
-  };
-
-  const handleFecharModal = () => {
-    setOficinaSelecionada(null);
+  // Navega para a tela de Detalhes (igual ao TabelaHorarios)
+  const handleAbrirDetalhes = (oficina, areaNome, sala, horarioFormatado) => {
+    navigate('/detalhes', {
+      state: { oficina: { ...oficina, areaNome, sala, horarioFormatado } },
+    });
   };
 
   // Mapeamento de locais para índices de cores
@@ -211,7 +200,7 @@ export default function LinhaTempoVertical({ periodoAtivo }) {
 
                   <div
                     className={`timeline-card ${isConcluida ? 'checkout-verde' : ''}`}
-                    onClick={() => handleAbrirModal(oficina, oficina.local, oficina.local, oficina.horarioFormatado)}
+                    onClick={() => handleAbrirDetalhes(oficina, oficina.local, oficina.local, oficina.horarioFormatado)}
                   >
                     <div className="timeline-card-header">
                       <span className={`timeline-tag ${oficina.corObj.textClass}`}>
@@ -241,13 +230,6 @@ export default function LinhaTempoVertical({ periodoAtivo }) {
           </div>
         )}
       </div>
-
-      <ModalOficina
-        oficina={oficinaSelecionada}
-        onClose={handleFecharModal}
-        onCheckout={handleCheckout}
-        isConcluida={oficinaSelecionada && oficinasConcluidas.includes(oficinaSelecionada.titulo)}
-      />
     </div>
   );
 }
