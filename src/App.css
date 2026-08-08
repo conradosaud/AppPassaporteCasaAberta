@@ -224,12 +224,10 @@
 
 .welcome-user p {
   font-size: 1.2rem;
-  color: #000000;
+  
 }
 
-.welcome-user h2 {
-  color: #000000;
-}
+
 
 /* Animations */
 @keyframes fadeInDown {
